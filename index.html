@@ -81,15 +81,33 @@
             line-height: 1.6;
         }
 
+        /* Layout wrapper for cycle + tree */
+        .layout-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+            gap: 3rem;
+            width: 100%;
+            max-width: 1600px;
+            position: relative;
+            z-index: 5;
+        }
+
         .infographic-container {
             position: relative;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
+        }
+
+        .side-panel {
+            width: 500px;
+            flex-shrink: 0;
+            display: flex;
             align-items: center;
-            padding: 2rem 0;
-            z-index: 5;
         }
 
         /* SVG layer for connecting lines */
@@ -128,7 +146,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: auto auto;
-            gap: 6rem 8rem;
+            gap: 5rem 6rem;
             width: 100%;
             position: relative;
             z-index: 5;
@@ -140,8 +158,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 340px;
-            height: 340px;
+            width: 320px;
+            height: 320px;
             background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
             border: 2px solid rgba(59, 130, 246, 0.3);
             border-radius: 50%;
@@ -154,11 +172,10 @@
             box-shadow: 0 0 50px rgba(59, 130, 246, 0.15), inset 0 0 30px rgba(255,255,255,0.02);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 2.5rem;
+            padding: 2rem;
             animation: float 6s ease-in-out infinite;
         }
 
-        /* Rotating ring effect around center node */
         .center-node::before {
             content: '';
             position: absolute;
@@ -181,7 +198,7 @@
         }
 
         .center-node h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: #fff;
             margin-bottom: 1rem;
@@ -193,22 +210,22 @@
         .feedback-loop {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 12px;
             color: #34d399;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             line-height: 1.4;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
 
         .feedback-loop svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             animation: pulse-icon 2s infinite;
         }
 
@@ -235,7 +252,6 @@
             height: 100%;
         }
 
-        /* Top colored accent line */
         .card::before {
             content: '';
             position: absolute;
@@ -250,14 +266,13 @@
             border-color: rgba(255,255,255,0.15);
         }
 
-        .card:hover::before {
-            height: 6px;
-        }
+        .card:hover::before { height: 6px; }
 
         .card.previa::before { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
         .card.verosimilitud::before { background: var(--secondary); box-shadow: 0 0 15px var(--secondary); }
         .card.evidencia::before { background: var(--warning); box-shadow: 0 0 15px var(--warning); }
         .card.posterior::before { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
+        .card.tree-card::before { background: var(--warning); box-shadow: 0 0 15px var(--warning); }
 
         .card-header {
             display: flex;
@@ -282,13 +297,14 @@
         .verosimilitud .icon { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
         .evidencia .icon { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
         .posterior .icon { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .tree-card .icon { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 
         .card-title {
             flex: 1;
         }
 
         .card-title h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             margin-bottom: 0.3rem;
             letter-spacing: -0.5px;
@@ -297,7 +313,7 @@
         .math-symbol {
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #fff;
             background: rgba(255,255,255,0.1);
             padding: 0.2rem 0.6rem;
@@ -350,11 +366,36 @@
         .evidencia .example-box { border-color: var(--warning); }
         .posterior .example-box { border-color: var(--accent); }
 
-        /* Placement within Grid */
+        /* Tree SVG specific styling */
+        .tree-container {
+            margin-top: 1rem;
+            width: 100%;
+            height: 300px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px dashed rgba(245, 158, 11, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         #node-previa { grid-column: 1; grid-row: 1; }
         #node-verosimilitud { grid-column: 2; grid-row: 1; }
         #node-evidencia { grid-column: 2; grid-row: 2; }
         #node-posterior { grid-column: 1; grid-row: 2; }
+
+        @media (max-width: 1400px) {
+            .layout-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .side-panel {
+                width: 100%;
+                max-width: 800px;
+                margin-top: 2rem;
+            }
+        }
 
         @media (max-width: 1024px) {
             .cycle-grid {
@@ -367,9 +408,6 @@
             }
             .center-node h2 {
                 font-size: 1.2rem;
-            }
-            .feedback-loop {
-                font-size: 0.85rem;
             }
         }
 
@@ -397,12 +435,19 @@
             #node-verosimilitud { grid-column: 1; grid-row: 3; }
             #node-evidencia { grid-column: 1; grid-row: 4; }
             #node-posterior { grid-column: 1; grid-row: 5; }
+            
+            .tree-container {
+                overflow-x: auto;
+                justify-content: flex-start;
+            }
+            .tree-container svg {
+                min-width: 500px; /* Ensure tree doesn't squish too much on mobile */
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Background Elements -->
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
@@ -412,133 +457,217 @@
         <p class="subtitle">Un modelo probabilístico continuo para la actualización del conocimiento. Ejemplo práctico: Detección de fitopatologías en cultivos aéreos.</p>
     </header>
 
-    <div class="infographic-container" id="container">
-        
-        <!-- SVG Connections Layer -->
-        <svg class="svg-connections" id="svgConnections">
-            <defs>
-                <marker id="arrow-previa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7" fill="none" stroke="#3b82f6" stroke-width="2"/>
-                </marker>
-                <marker id="arrow-vero" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7" fill="none" stroke="#8b5cf6" stroke-width="2"/>
-                </marker>
-                <marker id="arrow-evi" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7" fill="none" stroke="#f59e0b" stroke-width="2"/>
-                </marker>
-                <marker id="arrow-post" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7" fill="none" stroke="#10b981" stroke-width="2"/>
-                </marker>
-                <marker id="arrow-loop" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7" fill="none" stroke="#10b981" stroke-width="2"/>
-                </marker>
-            </defs>
-            <!-- Paths injected by JS -->
-        </svg>
-
-        <div class="cycle-grid">
+    <div class="layout-wrapper">
+        <div class="infographic-container" id="container">
             
-            <!-- Center Node (Visually centered via absolute positioning on desktop) -->
-            <div class="center-node" id="node-center">
-                <h2>Núcleo Central<br>Ciclo Bayesiano</h2>
-                <div class="feedback-loop">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="1 4 1 10 7 10"></polyline>
-                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            <svg class="svg-connections" id="svgConnections">
+                <defs>
+                    <marker id="arrow-previa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M1,1 L7,4 L1,7" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                    </marker>
+                    <marker id="arrow-vero" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M1,1 L7,4 L1,7" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+                    </marker>
+                    <marker id="arrow-evi" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M1,1 L7,4 L1,7" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                    </marker>
+                    <marker id="arrow-post" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M1,1 L7,4 L1,7" fill="none" stroke="#10b981" stroke-width="2"/>
+                    </marker>
+                    <marker id="arrow-loop" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M1,1 L7,4 L1,7" fill="none" stroke="#10b981" stroke-width="2"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="cycle-grid">
+                
+                <div class="center-node" id="node-center">
+                    <h2>Núcleo Central<br>Ciclo Bayesiano</h2>
+                    <div class="feedback-loop">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                        La Probabilidad Posterior de hoy se convierte en la Probabilidad Previa de mañana.
+                    </div>
+                </div>
+
+                <div class="card previa" id="node-previa">
+                    <div class="card-header">
+                        <div class="icon">1</div>
+                        <div class="card-title">
+                            <h3>Probabilidad Previa</h3>
+                            <span class="math-symbol">P(H)</span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h4>Función</h4>
+                        <p>Aportar el conocimiento inicial o histórico antes de evaluar nueva información.</p>
+                    </div>
+                    <div class="example-box">
+                        <strong>Ejemplo Aplicado</strong>
+                        Tasa histórica de detección de fitopatologías en cultivos aéreos.
+                    </div>
+                </div>
+
+                <div class="card verosimilitud" id="node-verosimilitud">
+                    <div class="card-header">
+                        <div class="icon">2</div>
+                        <div class="card-title">
+                            <h3>Verosimilitud</h3>
+                            <span class="math-symbol">P(E|H)</span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h4>Función</h4>
+                        <p>Evaluar la coherencia de los datos observados con la hipótesis planteada.</p>
+                    </div>
+                    <div class="example-box">
+                        <strong>Ejemplo Aplicado</strong>
+                        Probabilidad de que un sensor multiespectral detecte estrés hídrico si la planta realmente está enferma.
+                    </div>
+                </div>
+
+                <div class="card evidencia" id="node-evidencia">
+                    <div class="card-header">
+                        <div class="icon">3</div>
+                        <div class="card-title">
+                            <h3>Evidencia</h3>
+                            <span class="math-symbol">P(E)</span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h4>Función</h4>
+                        <p>Normalizar la información para que la suma de todas las hipótesis posibles sea igual a 1.</p>
+                    </div>
+                    <div class="example-box">
+                        <strong>Ejemplo Aplicado</strong>
+                        Probabilidad total de recibir una lectura anómala del sensor en todo el sembradío.
+                    </div>
+                </div>
+
+                <div class="card posterior" id="node-posterior">
+                    <div class="card-header">
+                        <div class="icon">4</div>
+                        <div class="card-title">
+                            <h3>Probabilidad Posterior</h3>
+                            <span class="math-symbol">P(H|E)</span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h4>Función</h4>
+                        <p>Producir una inferencia actualizada y optimizar la toma de decisiones finales.</p>
+                    </div>
+                    <div class="example-box">
+                        <strong>Ejemplo Aplicado</strong>
+                        Probabilidad ajustada de que una zona requiera intervención tras procesar imágenes del dron.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- NEW: Side Panel with Probability Tree -->
+        <div class="side-panel">
+            <div class="card tree-card">
+                <div class="card-header">
+                    <div class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="6" y1="3" x2="6" y2="15"></line>
+                            <circle cx="18" cy="6" r="3"></circle>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <path d="M18 9a9 9 0 0 1-9 9"></path>
+                        </svg>
+                    </div>
+                    <div class="card-title">
+                        <h3>Construcción de Evidencia</h3>
+                        <span class="math-symbol">P(E) = Σ P(E|H)P(H)</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <p>Diagrama de árbol que ilustra cómo la <strong>Probabilidad Total (Evidencia)</strong> se calcula a partir de la suma ponderada de todas las ramas que concluyen en una lectura anómala.</p>
+                </div>
+                
+                <div class="tree-container">
+                    <svg viewBox="0 0 520 320" width="100%" height="100%">
+                        <!-- Connections -->
+                        <path d="M 60 160 C 90 160, 90 80, 120 80" fill="none" stroke="#475569" stroke-width="2"/>
+                        <path d="M 60 160 C 90 160, 90 240, 120 240" fill="none" stroke="#475569" stroke-width="2"/>
+                        
+                        <!-- Path to E|H -->
+                        <path d="M 220 80 C 250 80, 250 45, 280 45" fill="none" stroke="#f59e0b" stroke-width="3" filter="drop-shadow(0 0 5px rgba(245, 158, 11, 0.5))"/>
+                        <!-- Path to ~E|H -->
+                        <path d="M 220 80 C 250 80, 250 115, 280 115" fill="none" stroke="#475569" stroke-width="2"/>
+                    
+                        <!-- Path to E|~H -->
+                        <path d="M 220 240 C 250 240, 250 205, 280 205" fill="none" stroke="#f59e0b" stroke-width="3" filter="drop-shadow(0 0 5px rgba(245, 158, 11, 0.5))"/>
+                        <!-- Path to ~E|~H -->
+                        <path d="M 220 240 C 250 240, 250 275, 280 275" fill="none" stroke="#475569" stroke-width="2"/>
+                    
+                        <!-- Summation Bracket -->
+                        <path d="M 390 45 L 420 45 L 420 205 L 390 205" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 4" opacity="0.7"/>
+                        <path d="M 420 125 L 435 125" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 4" opacity="0.7"/>
+                    
+                        <!-- Nodes -->
+                        <g>
+                            <rect x="0" y="145" width="60" height="30" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                            <text x="30" y="164" fill="#f8fafc" font-size="12" text-anchor="middle" font-family="Outfit, sans-serif">Cultivo</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="120" y="65" width="100" height="30" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                            <text x="170" y="84" fill="#f8fafc" font-size="12" text-anchor="middle" font-family="Outfit, sans-serif">Planta Enferma</text>
+                            <text x="170" y="106" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="Outfit, sans-serif">P(H)</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="120" y="225" width="100" height="30" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                            <text x="170" y="244" fill="#f8fafc" font-size="12" text-anchor="middle" font-family="Outfit, sans-serif">Planta Sana</text>
+                            <text x="170" y="266" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="Outfit, sans-serif">P(~H)</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="280" y="30" width="110" height="30" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+                            <text x="335" y="49" fill="#fcd34d" font-size="12" text-anchor="middle" font-weight="600" font-family="Outfit, sans-serif">Sensor Anómalo</text>
+                            <text x="335" y="71" fill="#fcd34d" font-size="11" text-anchor="middle" font-family="Outfit, sans-serif">P(E|H)</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="280" y="100" width="110" height="30" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                            <text x="335" y="119" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="Outfit, sans-serif">Normal</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="280" y="190" width="110" height="30" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+                            <text x="335" y="209" fill="#fcd34d" font-size="12" text-anchor="middle" font-weight="600" font-family="Outfit, sans-serif">Sensor Anómalo</text>
+                            <text x="335" y="231" fill="#fcd34d" font-size="11" text-anchor="middle" font-family="Outfit, sans-serif">P(E|~H)</text>
+                        </g>
+                    
+                        <g>
+                            <rect x="280" y="260" width="110" height="30" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                            <text x="335" y="279" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="Outfit, sans-serif">Normal</text>
+                        </g>
+                    
+                        <!-- Total Result -->
+                        <g>
+                            <rect x="435" y="110" width="80" height="30" rx="6" fill="rgba(245, 158, 11, 0.2)" stroke="#f59e0b" stroke-width="2"/>
+                            <text x="475" y="129" fill="#fff" font-size="13" text-anchor="middle" font-weight="800" font-family="Outfit, sans-serif">P(E) Total</text>
+                        </g>
                     </svg>
-                    La Probabilidad Posterior de hoy se convierte en la Probabilidad Previa de mañana.
                 </div>
             </div>
-
-            <!-- Card 1: Previa -->
-            <div class="card previa" id="node-previa">
-                <div class="card-header">
-                    <div class="icon">1</div>
-                    <div class="card-title">
-                        <h3>Probabilidad Previa</h3>
-                        <span class="math-symbol">P(H)</span>
-                    </div>
-                </div>
-                <div class="content-section">
-                    <h4>Función</h4>
-                    <p>Aportar el conocimiento inicial o histórico antes de evaluar nueva información.</p>
-                </div>
-                <div class="example-box">
-                    <strong>Ejemplo Aplicado</strong>
-                    Tasa histórica de detección de fitopatologías en cultivos aéreos.
-                </div>
-            </div>
-
-            <!-- Card 2: Verosimilitud -->
-            <div class="card verosimilitud" id="node-verosimilitud">
-                <div class="card-header">
-                    <div class="icon">2</div>
-                    <div class="card-title">
-                        <h3>Verosimilitud</h3>
-                        <span class="math-symbol">P(E|H)</span>
-                    </div>
-                </div>
-                <div class="content-section">
-                    <h4>Función</h4>
-                    <p>Evaluar la coherencia de los datos observados con la hipótesis planteada.</p>
-                </div>
-                <div class="example-box">
-                    <strong>Ejemplo Aplicado</strong>
-                    Probabilidad de que un sensor multiespectral detecte estrés hídrico si la planta realmente está enferma.
-                </div>
-            </div>
-
-            <!-- Card 3: Evidencia -->
-            <div class="card evidencia" id="node-evidencia">
-                <div class="card-header">
-                    <div class="icon">3</div>
-                    <div class="card-title">
-                        <h3>Evidencia</h3>
-                        <span class="math-symbol">P(E)</span>
-                    </div>
-                </div>
-                <div class="content-section">
-                    <h4>Función</h4>
-                    <p>Normalizar la información para que la suma de todas las hipótesis posibles sea igual a 1.</p>
-                </div>
-                <div class="example-box">
-                    <strong>Ejemplo Aplicado</strong>
-                    Probabilidad total de recibir una lectura anómala del sensor en todo el sembradío.
-                </div>
-            </div>
-
-            <!-- Card 4: Posterior -->
-            <div class="card posterior" id="node-posterior">
-                <div class="card-header">
-                    <div class="icon">4</div>
-                    <div class="card-title">
-                        <h3>Probabilidad Posterior</h3>
-                        <span class="math-symbol">P(H|E)</span>
-                    </div>
-                </div>
-                <div class="content-section">
-                    <h4>Función</h4>
-                    <p>Producir una inferencia actualizada y optimizar la toma de decisiones finales.</p>
-                </div>
-                <div class="example-box">
-                    <strong>Ejemplo Aplicado</strong>
-                    Probabilidad ajustada de que una zona del cultivo requiera intervención tras procesar imágenes del dron.
-                </div>
-            </div>
-
         </div>
     </div>
 
     <script>
         function drawSVGConnections() {
-            // Only draw on desktop screens
             if (window.innerWidth <= 768) return;
 
             const svg = document.getElementById('svgConnections');
             const container = document.getElementById('container');
             const rectContainer = container.getBoundingClientRect();
             
-            // Clear existing paths except defs
             const defs = svg.querySelector('defs');
             svg.innerHTML = '';
             svg.appendChild(defs);
@@ -565,26 +694,23 @@
             const n3_l = getPos('node-evidencia', 'left');
             const n4_r = getPos('node-posterior', 'right');
             const n4_t = getPos('node-posterior', 'top');
-            const n1_b = getPos('node-previa', 'bottom');
             const center = getPos('node-center', 'center');
 
             const drawCurve = (pStart, pEnd, color, marker, flowDelay) => {
                 const pathLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 const pathFlow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 
-                // Calculate control points for a smooth cubic bezier curve
                 const dx = pEnd.x - pStart.x;
                 const dy = pEnd.y - pStart.y;
                 let c1x, c1y, c2x, c2y;
                 
-                // Curve routing logic around center
-                if (Math.abs(dy) < 50) { // Horizontal connection (1->2, 3->4)
+                if (Math.abs(dy) < 50) { 
                     c1x = pStart.x + dx * 0.4; c1y = pStart.y;
                     c2x = pEnd.x - dx * 0.4; c2y = pEnd.y;
-                } else if (Math.abs(dx) < 50) { // Vertical connection (2->3, 4->1)
+                } else if (Math.abs(dx) < 50) { 
                     c1x = pStart.x; c1y = pStart.y + dy * 0.4;
                     c2x = pEnd.x; c2y = pEnd.y - dy * 0.4;
-                } else { // Diagonal-ish
+                } else { 
                     c1x = pStart.x + dx * 0.5; c1y = pStart.y;
                     c2x = pEnd.x - dx * 0.5; c2y = pEnd.y;
                 }
@@ -604,17 +730,10 @@
                 svg.appendChild(pathFlow);
             };
 
-            // 1 -> 2 (Previa to Verosimilitud)
             drawCurve(n1, n2, '#3b82f6', 'arrow-previa', 0);
-            
-            // 2 -> 3 (Verosimilitud to Evidencia)
             drawCurve(n2_b, n3_t, '#8b5cf6', 'arrow-vero', 0.5);
-            
-            // 3 -> 4 (Evidencia to Posterior)
             drawCurve(n3_l, n4_r, '#f59e0b', 'arrow-evi', 1);
 
-            // Special Feedback Curve: 4 -> 1 (Posterior to Previa)
-            // Going up on the left side
             const p4 = getPos('node-posterior', 'top');
             const p1 = getPos('node-previa', 'bottom');
             const fbLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -630,7 +749,6 @@
             fbFlow.setAttribute('stroke', '#10b981');
             fbFlow.setAttribute('marker-end', 'url(#arrow-loop)');
             fbFlow.style.animationDelay = '1.5s';
-            // Make the feedback loop feel different
             fbFlow.style.strokeWidth = '5';
             fbFlow.style.filter = 'drop-shadow(0 0 12px #10b981)';
 
@@ -638,11 +756,8 @@
             svg.appendChild(fbFlow);
         }
 
-        // Initialize and handle resize
         window.addEventListener('load', drawSVGConnections);
         window.addEventListener('resize', drawSVGConnections);
-        
-        // Initial call in case fonts/layout shift slightly
         setTimeout(drawSVGConnections, 500);
     </script>
 </body>
